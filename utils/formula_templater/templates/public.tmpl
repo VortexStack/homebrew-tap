@@ -1,0 +1,21 @@
+require "formula"
+class {{ .Name }} < Formula
+  desc "{{ .Product }}"
+  homepage "https://vortexstack.com"
+  version "{{ .Version }}"
+
+  if OS.mac? && Hardware::CPU.arm?
+    url "{{ .ReleaseUrl }}"
+    sha256 "{{ .SHA256 }}"
+  end
+
+  conflicts_with "{{ .Product }}"
+
+  def install
+    bin.install "{{ .Product }}"
+  end
+
+  test do
+    system "#{bin}/{{ .Product }} --version"
+  end
+end
